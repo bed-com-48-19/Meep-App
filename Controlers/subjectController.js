@@ -1,5 +1,6 @@
 const Subject = require('../models/subjectModel');
 const Class = require('../models/classModel');
+const Topic = require('../models/topicModel');
 
 // Create a new subject
 const createSubject = async (req, res) => {
@@ -21,8 +22,10 @@ const createSubject = async (req, res) => {
         // Create the new subject instance using the request body
         const newSubject = await Subject.create({ ...req.body, class: classId });
 
+        console.log("Subject created:", newSubject);
         res.status(201).json(newSubject);
     } catch (error) {
+        console.error("Error creating subject:", error.message);
         res.status(500).json({ error: error.message });
     }
 };
@@ -31,8 +34,10 @@ const createSubject = async (req, res) => {
 const getAllSubjects = async (req, res) => {
     try {
         const subjects = await Subject.find().populate('class');
+        console.log("Subjects retrieved:", subjects);
         res.status(200).json(subjects);
     } catch (error) {
+        console.error("Error retrieving subjects:", error.message);
         res.status(500).json({ error: error.message });
     }
 };
@@ -42,10 +47,16 @@ const getSubjectById = async (req, res) => {
     try {
         const foundSubject = await Subject.findById(req.params.id).populate('class');
         if (!foundSubject) {
+            console.log("Subject not found:", req.params.id);
             return res.status(404).json({ message: "Subject not found" });
         }
-        res.status(200).json(foundSubject);
+
+        // Populate topics associated with this subject
+        const topics = await Topic.find({ subject: req.params.id });
+        console.log("Subject and its topics retrieved:", { foundSubject, topics });
+        res.status(200).json({ foundSubject, topics });
     } catch (error) {
+        console.error("Error retrieving subject by ID:", error.message);
         res.status(500).json({ error: error.message });
     }
 };
@@ -55,10 +66,13 @@ const updateSubjectById = async (req, res) => {
     try {
         const updatedSubject = await Subject.findByIdAndUpdate(req.params.id, req.body, { new: true }).populate('class');
         if (!updatedSubject) {
+            console.log("Subject not found for update:", req.params.id);
             return res.status(404).json({ message: "Subject not found" });
         }
+        console.log("Subject updated:", updatedSubject);
         res.status(200).json(updatedSubject);
     } catch (error) {
+        console.error("Error updating subject:", error.message);
         res.status(500).json({ error: error.message });
     }
 };
@@ -68,14 +82,16 @@ const deleteSubjectById = async (req, res) => {
     try {
         const deletedSubject = await Subject.findByIdAndDelete(req.params.id).populate('class');
         if (!deletedSubject) {
+            console.log("Subject not found for deletion:", req.params.id);
             return res.status(404).json({ message: "Subject not found" });
         }
+        console.log("Subject deleted:", deletedSubject);
         res.status(200).json({ message: "Subject deleted successfully" });
     } catch (error) {
+        console.error("Error deleting subject:", error.message);
         res.status(500).json({ error: error.message });
     }
 };
-
 
 module.exports = {
     createSubject,
