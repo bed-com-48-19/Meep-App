@@ -13,6 +13,7 @@ const topicRoutes = require("./routes/topicRoutes")
 const subtopicRoutes = require("./routes/subtopicRoutes")
 const notesRoutes = require("./routes/notesRoutes")
 const videoRoutes = require("./routes/videoRoutes")
+const quizRoutes = require("./routes/quizRoutes")
 
 dotenv.config();
 
@@ -41,6 +42,8 @@ app.use("/api/v1/subtopics", subtopicRoutes)
 app.use("/api/v1/notes", notesRoutes)
 // video routes
 app.use("/api/v1/videos", videoRoutes)
+// Quiz Routes
+app.use("/api/v1/quizzes", quizRoutes)
 
 
 app.get("/", (req, res) => {

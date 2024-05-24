@@ -25,7 +25,7 @@ const getAllSubtopics = async (req, res) => {
 // Get subtopic by ID
 const getSubtopicById = async (req, res) => {
     try {
-        const foundSubtopic = await Subtopic.findById(req.params.id).populate('topic').populate('videos');
+        const foundSubtopic = await Subtopic.findById(req.params.id).populate('topic').populate('videos').populate('quizzes');
         if (!foundSubtopic) {
             return res.status(404).json({ message: "Subtopic not found" });
         }

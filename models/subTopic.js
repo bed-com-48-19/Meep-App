@@ -6,7 +6,8 @@ const subtopicSchema = new mongoose.Schema({
     description: { type: String },
     subtopic_img_url: { type: String },
     topic: { type: mongoose.Schema.Types.ObjectId, ref: 'Topic', required: true },
-    videos: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Video' }] // Add videos field
+    videos: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Video' }], // Add videos field
+    quizzes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Quiz' }] // Add quizzes field
 });
 
 const Subtopic = mongoose.model('Subtopic', subtopicSchema);
