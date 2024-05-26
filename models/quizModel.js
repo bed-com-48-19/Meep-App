@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 const questionSchema = new mongoose.Schema({
     questionText: { type: String, required: true },
+    allowsMultiple: { type: Boolean, default: true },
     options: [{ type: String, required: true }],
     correctAnswer: { type: String, required: true }
 });
