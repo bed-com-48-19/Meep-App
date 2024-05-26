@@ -14,6 +14,18 @@ const subtopicRoutes = require("./routes/subtopicRoutes")
 const notesRoutes = require("./routes/notesRoutes")
 const videoRoutes = require("./routes/videoRoutes")
 const quizRoutes = require("./routes/quizRoutes")
+const contentCreatorRoutes = require("./routes/contentCreatorRoutes")
+const literacyRoutes = require("./routes/literacyRoutes")
+const studentQuizRoutes = require("./routes/studentQuizRoutes")
+const studentRoutes = require("./routes/studentRoutes")
+const studentResponseRoutes = require("./routes/studentResponseRoutes")
+const subtopicIntroNotesRoutes = require("./routes/subtopicIntroNotesRoutes")
+const testPerformanceRoutes = require("./routes/testPerfomanceRoutes")
+const testQuestionGradeRoutes = require("./routes/testQuestionGradeRoutes")
+const testQuestionRoutes = require("./routes/testQuestionSchemaRoutes")
+const testRoutes = require("./routes/testRoutes")
+
+
 
 dotenv.config();
 
@@ -26,24 +38,65 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOption));
 
+// content creator routes
+app.use("/api/v1/creator", contentCreatorRoutes);
+
+
+// test routes
+app.use("/api/v1/test", testRoutes);
+
+
+// content creator routes
+app.use("/api/v1/test_questions", testQuestionRoutes);
+
+// routes for literacy content
+app.use("/api/v1/literacy", literacyRoutes);
+
+// student quiz routes
+app.use("/api/v1/student_quiz", studentQuizRoutes);
+
+// student entity routes
+app.use("/api/v1/student", studentRoutes);
+
+// student test responses routes
+app.use("/api/v1/student_test_response", studentResponseRoutes);
+
+// test question mark or grade routes
+app.use("/api/v1/test_question_mark", testQuestionGradeRoutes);
+
+// routes to get student overall score on a test
+app.use("/api/v1/test_score", testPerformanceRoutes);
+
+// auth
+app.use("/api/v1/auth", authRoutes);
+
 //auth route
 app.use("/api/v1/auth", authRoutes);
+
 //user route
 app.use("/api/v1/user", userRoutes)
+
 // class route
 app.use("/api/v1/class", classRoutes)
+
 // subject route
 app.use("/api/v1/subject", subjectRoutes)
+
 // topic route
 app.use("/api/v1/topic", topicRoutes)
+
 // sub-topic
 app.use("/api/v1/subtopics", subtopicRoutes)
+
 // create notes route
 app.use("/api/v1/notes", notesRoutes)
+
 // create subtopic into  notes route
-app.use("/api/v1/subtopic_into_notes", notesRoutes)
+app.use("/api/v1/subtopic_into_notes", subtopicIntroNotesRoutes)
+
 // video routes
 app.use("/api/v1/videos", videoRoutes)
+
 // Quiz Routes
 app.use("/api/v1/quizzes", quizRoutes)
 
