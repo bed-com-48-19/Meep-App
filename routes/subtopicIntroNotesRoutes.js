@@ -1,6 +1,6 @@
 // routes/notesRoutes.js
 const express = require('express');
-const { createNote, getAllNotes, getNoteById, updateNoteById, deleteNoteById } = require('../Controlers/notesController');
+const { createNote, getAllNotes, getNoteById, updateNoteById, deleteNoteById } = require('../Controlers/subtopicNotesIntroController');
 const router = express.Router();
 
 router.post('/', createNote);

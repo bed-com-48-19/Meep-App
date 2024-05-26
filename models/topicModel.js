@@ -10,6 +10,7 @@ const topicSchema = new mongoose.Schema({
     topic_img_url: { type: String },
     subject: { type: mongoose.Schema.Types.ObjectId, ref: 'Subject', required: true },
     class: { type: mongoose.Schema.Types.ObjectId, ref: 'Class', required: true },
+    contentCreator: { type: mongoose.Schema.Types.ObjectId, ref: 'ContentCreator', required: true },
     subtopics: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Subtopic' }] // Add this line
 });
 

@@ -40,6 +40,8 @@ app.use("/api/v1/topic", topicRoutes)
 app.use("/api/v1/subtopics", subtopicRoutes)
 // create notes route
 app.use("/api/v1/notes", notesRoutes)
+// create subtopic into  notes route
+app.use("/api/v1/subtopic_into_notes", notesRoutes)
 // video routes
 app.use("/api/v1/videos", videoRoutes)
 // Quiz Routes
