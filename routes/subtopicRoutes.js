@@ -18,4 +18,6 @@ router.put('/:id', subtopicController.updateSubtopicById);
 // Delete subtopic by ID
 router.delete('/:id', subtopicController.deleteSubtopicById);
 
+router.get('/:subtopicId/comments', subtopicController.getCommentsBySubtopicId); 
+
 module.exports = router;

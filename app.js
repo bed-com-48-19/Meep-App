@@ -30,8 +30,8 @@ const customerFeedbackRoutes = require("./routes/customerFeedbackRoutes")
 const tutorRoutes = require("./routes/tutorRoutes")
 const tutorSubjectsRoutes = require("./routes/tutorSubjectsRoutes")
 
-// const testRoutes = require("./routes/testRoutes")
-// const testRoutes = require("./routes/testRoutes")
+const notesCommentsRoutes = require("./routes/notesCommentRoutes")
+const videoCommentRoutes = require("./routes/videoCommentRoutes")
 
 dotenv.config();
 
@@ -43,6 +43,12 @@ const corsOption = {
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOption));
+
+// notes comment routes
+app.use("/api/v1/notes/comment", notesCommentsRoutes);
+
+// video comment routes
+app.use("/api/v1/video/comment", videoCommentRoutes);
 
 // tutor routes
 app.use("/api/v1/tutor", tutorRoutes);

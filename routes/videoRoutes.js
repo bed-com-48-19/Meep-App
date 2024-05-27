@@ -18,4 +18,7 @@ router.put('/:id', videoController.updateVideoById);
 // Delete video by ID
 router.delete('/:id', videoController.deleteVideoById);
 
+// get all comments made on a particular video
+router.get('/:videoId/comments', videoController.getCommentsByVideoId);
+
 module.exports = router;

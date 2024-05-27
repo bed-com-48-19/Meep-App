@@ -1,6 +1,7 @@
 // controllers/videoController.js
 const Video = require('../models/videoModel');
 const Subtopic = require('../models/subTopic');
+const VideoComment = require('../models/videoCommentsModel'); 
 
 // Create a new video
 const createVideo = async (req, res) => {
@@ -78,10 +79,25 @@ const deleteVideoById = async (req, res) => {
     }
 };
 
+
+// Get all comments for a video by video ID
+const getCommentsByVideoId = async (req, res) => {
+    try {
+        const comments = await VideoComment.find({ video: req.params.videoId });
+        if (!comments) {
+            return res.status(404).json({ message: "No comments found for this video" });
+        }
+        res.status(200).json(comments);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 module.exports = {
     createVideo,
     getAllVideos,
     getVideoById,
     updateVideoById,
-    deleteVideoById
+    deleteVideoById,
+    getCommentsByVideoId
 };

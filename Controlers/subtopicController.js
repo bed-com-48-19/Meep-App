@@ -1,6 +1,6 @@
 // controllers/subtopicController.js
 const Subtopic = require('../models/subTopic');
-const Video = require('../models/videoModel');
+const NotesComment = require('../models/notesCommentModel');
 
 // Create a new subtopic
 const createSubtopic = async (req, res) => {
@@ -59,6 +59,23 @@ const deleteSubtopicById = async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
+
+
+};
+
+
+
+// Get all comments for a subtopic by subtopic ID
+const getCommentsBySubtopicId = async (req, res) => {
+    try {
+        const comments = await NotesComment.find({ subtopic: req.params.subtopicId });
+        if (!comments) {
+            return res.status(404).json({ message: "No comments found for this subtopic" });
+        }
+        res.status(200).json(comments);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 };
 
 module.exports = {
@@ -66,5 +83,6 @@ module.exports = {
     getAllSubtopics,
     getSubtopicById,
     updateSubtopicById,
-    deleteSubtopicById
+    deleteSubtopicById,
+    getCommentsBySubtopicId
 };
