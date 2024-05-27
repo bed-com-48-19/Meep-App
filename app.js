@@ -25,7 +25,13 @@ const testQuestionGradeRoutes = require("./routes/testQuestionGradeRoutes")
 const testQuestionRoutes = require("./routes/testQuestionSchemaRoutes")
 const testRoutes = require("./routes/testRoutes")
 
+const tutorContactRoutes = require("./routes/contactsRoutes")
+const customerFeedbackRoutes = require("./routes/customerFeedbackRoutes")
+const tutorRoutes = require("./routes/tutorRoutes")
+const tutorSubjectsRoutes = require("./routes/tutorSubjectsRoutes")
 
+// const testRoutes = require("./routes/testRoutes")
+// const testRoutes = require("./routes/testRoutes")
 
 dotenv.config();
 
@@ -37,6 +43,18 @@ const corsOption = {
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOption));
+
+// tutor routes
+app.use("/api/v1/tutor", tutorRoutes);
+
+// tutor subject routes
+app.use("/api/v1/tutor/subjects", tutorSubjectsRoutes);
+
+// tutor feedback routes
+app.use("/api/v1/tutor/feedback", customerFeedbackRoutes);
+
+// tutoe contacts routes
+app.use("/api/v1/tutor/contacts", tutorContactRoutes);
 
 // content creator routes
 app.use("/api/v1/creator", contentCreatorRoutes);
