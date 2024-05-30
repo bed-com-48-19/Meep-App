@@ -1,6 +1,9 @@
 // controllers/subtopicController.js
 const Subtopic = require('../models/subTopic');
+const SubtopicIntroNotes = require('../models/subtopicIntroNotesModel');
+const Videos = require('../models/videoModel');
 const NotesComment = require('../models/notesCommentModel');
+
 
 // Create a new subtopic
 const createSubtopic = async (req, res) => {
@@ -25,11 +28,16 @@ const getAllSubtopics = async (req, res) => {
 // Get subtopic by ID
 const getSubtopicById = async (req, res) => {
     try {
-        const foundSubtopic = await Subtopic.findById(req.params.id).populate('topic').populate('videos').populate('quizzes');
+        const foundSubtopic = await Subtopic.findById(req.params.id);
         if (!foundSubtopic) {
             return res.status(404).json({ message: "Subtopic not found" });
         }
-        res.status(200).json(foundSubtopic);
+
+        const notes = await SubtopicIntroNotes.find({ subtopic: req.params.id });
+
+        const videos = await Videos.find({ subtopic: req.params.id });
+
+        res.status(200).json({foundSubtopic, notes, videos});
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
