@@ -5,6 +5,13 @@ const mongoose = require('mongoose');
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
+
+const swaggerUI = require('swagger-ui-express');
+const swaggerSpec = require("./swagger");
+
+// Serve Swagger documentation
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec))
+
 const authRoutes = require("./routes/authRoutes")
 const userRoutes = require("./routes/userRoutes")
 const classRoutes = require("./routes/classRoutes")
