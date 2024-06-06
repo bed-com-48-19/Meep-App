@@ -32,10 +32,10 @@ const getSubtopicById = async (req, res) => {
         if (!foundSubtopic) {
             return res.status(404).json({ message: "Subtopic not found" });
         }
-
         const notes = await SubtopicIntroNotes.find({ subtopic: req.params.id });
 
         const videos = await Videos.find({ subtopic: req.params.id });
+        // const videos = await Videos.find({ subtopic: req.params.id }).populate('notes');
 
         res.status(200).json({foundSubtopic, notes, videos});
     } catch (error) {
