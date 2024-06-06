@@ -39,6 +39,7 @@ const tutorSubjectsRoutes = require("./routes/tutorSubjectsRoutes")
 
 const notesCommentsRoutes = require("./routes/notesCommentRoutes")
 const videoCommentRoutes = require("./routes/videoCommentRoutes")
+const progressRoutes = require("./routes/progressRoutes")
 
 dotenv.config();
 
@@ -50,6 +51,9 @@ const corsOption = {
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOption));
+
+// progress routes
+app.use("/api/v1/progress", progressRoutes);
 
 // notes comment routes
 app.use("/api/v1/notes/comment", notesCommentsRoutes);

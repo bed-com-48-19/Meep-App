@@ -9,3 +9,4 @@ const progressSchema = new mongoose.Schema({
 const Progress = mongoose.model('Progress', progressSchema);
 
 module.exports = Progress;
+
