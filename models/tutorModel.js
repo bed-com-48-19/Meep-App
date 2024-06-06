@@ -8,6 +8,7 @@ const tutorSchema = new mongoose.Schema({
     location : { type: String },
     masteredSubject : { type: String },
     facebookLink : { type: String },
+    whatsappLink : { type: String },
     linkedInProfileLink : { type: String },
 });
 
