@@ -65,13 +65,13 @@ app.use("/api/v1/video/comment", videoCommentRoutes);
 app.use("/api/v1/tutor", tutorRoutes);
 
 // tutor subject routes
-app.use("/api/v1/tutor/subjects", tutorSubjectsRoutes);
+app.use("/api/v1/tu/subjects", tutorSubjectsRoutes);
 
 // tutor feedback routes
-app.use("/api/v1/tutor/feedback", customerFeedbackRoutes);
+app.use("/api/v1/tut/feedback", customerFeedbackRoutes);
 
 // tutoe contacts routes
-app.use("/api/v1/tutor/contacts", tutorContactRoutes);
+app.use("/api/v1/tuto/contacts", tutorContactRoutes);
 
 // content creator routes
 app.use("/api/v1/creator", contentCreatorRoutes);
