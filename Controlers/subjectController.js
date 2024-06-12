@@ -1,7 +1,7 @@
 const Subject = require('../models/subjectModel');
 const Class = require('../models/classModel');
 const Topic = require('../models/topicModel');
-
+const Subtopic = require('../models/subTopic'); // Assuming the Subtopic model is in ./models
 // Create a new subject
 const createSubject = async (req, res) => {
     try {
@@ -61,6 +61,36 @@ const getSubjectById = async (req, res) => {
     }
 };
 
+// Get subject by class ID and subject name
+const getSubjectWithSubtopics = async (req, res) => {
+    try {
+        const { classId, subjectName } = req.params;
+
+        // Find the subject by class ID and name
+        const foundSubject = await Subject.findOne({ class: classId, name: subjectName }).populate('class');
+        if (!foundSubject) {
+            console.log("Subject not found:", subjectName);
+            return res.status(404).json({ message: "Subject not found" });
+        }
+
+        // Populate topics associated with this subject
+        const topics = await Topic.find({ subject: foundSubject._id }).populate('subject');
+        
+        // Populate subtopics for each topic
+        const topicsWithSubtopics = await Promise.all(topics.map(async (topic) => {
+            const subtopics = await Subtopic.find({ topic: topic._id });
+            return { ...topic._doc, subtopics }; // Merge subtopics into topic
+        }));
+
+        console.log("Subject and its topics with subtopics retrieved:", { foundSubject, topicsWithSubtopics });
+        res.status(200).json({ foundSubject, topics: topicsWithSubtopics });
+    } catch (error) {
+        console.error("Error retrieving subject by class ID and name:", error.message);
+        res.status(500).json({ error: error.message });
+    }
+};
+
+
 // Update subject by ID
 const updateSubjectById = async (req, res) => {
     try {
@@ -98,5 +128,6 @@ module.exports = {
     getAllSubjects,
     getSubjectById,
     updateSubjectById,
-    deleteSubjectById
+    deleteSubjectById,
+    getSubjectWithSubtopics
 };

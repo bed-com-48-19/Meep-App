@@ -105,9 +105,6 @@ app.use("/api/v1/test_score", testPerformanceRoutes);
 // auth
 app.use("/api/v1/auth", authRoutes);
 
-//auth route
-app.use("/api/v1/auth", authRoutes);
-
 //user route
 app.use("/api/v1/user", userRoutes)
 

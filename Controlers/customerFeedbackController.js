@@ -24,7 +24,7 @@ const getAllCustomerFeedback = async (req, res) => {
 const getCustomerFeedbackByTutorId = async (req, res) => {
     try {
         const customerFeedback = await CustomerFeedback.find({ tutor: req.params.tutorId }).populate('tutor');
-        if (!customerFeedback) {
+        if (!customerFeedback || customerFeedback.length === 0) {
             return res.status(404).json({ message: 'Customer feedback not found' });
         }
         res.status(200).json(customerFeedback);

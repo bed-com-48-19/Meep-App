@@ -4,6 +4,15 @@ const TestQuestionMarks = require('../models/testQuestionGrade');
 // Create a new StudentResponse
 const createStudentResponse = async (req, res) => {
     try {
+        const student = req.body.student;
+        const testQuestion = req.body.testQuestion;
+        
+        const response = await StudentResponse.findOne({student, testQuestion});
+
+        if (response) {
+            return res.status(401).json({ error: "Already available" });
+        }
+
         const newStudentResponse = await StudentResponse.create(req.body);
         res.status(201).json(newStudentResponse);
     } catch (error) {

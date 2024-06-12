@@ -2,6 +2,15 @@ const Student = require('../models/studentModel');
 
 const createStudent = async (req, res) => {
     try {
+        const stripe_student_id = req.body.stripe_student_id;
+
+        const student = await Student.findOne({stripe_student_id});
+        
+        // return if the student with clerk id is already in
+        if (student) {
+            return res.status(401).json({ error: 'Already Available' });
+        }
+
         const newStudent = await Student.create(req.body);
         res.status(201).json(newStudent);
     } catch (error) {

@@ -2,6 +2,8 @@ const Topic = require('../models/topicModel');
 const Subject = require('../models/subjectModel');
 const Class = require('../models/classModel');
 const Subtopic = require('../models/subTopic');
+const Test = require('../models/testModel');
+
 
 // Create a new topic
 const createTopic = async (req, res) => {
@@ -53,8 +55,10 @@ const getTopicById = async (req, res) => {
         // Populate subtopics
         const subtopics = await Subtopic.find({ topic: foundTopic._id });
 
+        const test = await Test.find({ topic: foundTopic._id });
+
         console.log("Fetched topic by ID with subtopics:", foundTopic, subtopics);
-        res.status(200).json({ ...foundTopic.toObject(), subtopics });
+        res.status(200).json({ ...foundTopic.toObject(), subtopics, test });
     } catch (error) {
         console.error("Error fetching topic by ID:", error);
         res.status(500).json({ error: error.message });

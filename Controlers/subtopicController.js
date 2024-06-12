@@ -3,6 +3,7 @@ const Subtopic = require('../models/subTopic');
 const SubtopicIntroNotes = require('../models/subtopicIntroNotesModel');
 const Videos = require('../models/videoModel');
 const NotesComment = require('../models/notesCommentModel');
+const Quiz = require('../models/quizModel')
 
 
 // Create a new subtopic
@@ -36,8 +37,11 @@ const getSubtopicById = async (req, res) => {
 
         const videos = await Videos.find({ subtopic: req.params.id });
         // const videos = await Videos.find({ subtopic: req.params.id }).populate('notes');
+         
+        const quizzes = await Quiz.find({ subtopic: req.params.id });
 
-        res.status(200).json({foundSubtopic, notes, videos});
+
+        res.status(200).json({foundSubtopic, notes, videos, quizzes});
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
