@@ -1,10 +1,17 @@
-// controllers/classController.js
 const Class = require('../models/classModel');
 const Subject = require('../models/subjectModel');
 
 // Create a new class
 const createClass = async (req, res) => {
     try {
+        // Check if the class already exists (case insensitive)
+        const className = req.body.name.toLowerCase();
+        const existingClass = await Class.findOne({ name: { $regex: new RegExp(`^${className}$`, 'i') } });
+        
+        if (existingClass) {
+            return res.status(400).json({ message: "Class already exists" });
+        }
+
         const newClass = await Class.create(req.body);
         console.log("Class created:", newClass);
         res.status(201).json(newClass);
@@ -48,6 +55,14 @@ const getClassById = async (req, res) => {
 // Update class by ID
 const updateClassById = async (req, res) => {
     try {
+        // Check if the class already exists (case insensitive)
+        const className = req.body.name.toLowerCase();
+        const existingClass = await Class.findOne({ name: { $regex: new RegExp(`^${className}$`, 'i') }, _id: { $ne: req.params.id } });
+        
+        if (existingClass) {
+            return res.status(400).json({ message: "Class already exists" });
+        }
+
         const updatedClass = await Class.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!updatedClass) {
             console.log("Class not found for update:", req.params.id);
