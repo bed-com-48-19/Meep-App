@@ -44,6 +44,24 @@ const getStudentResponseById = async (req, res) => {
     }
 };
 
+// Get StudentResponses by testId and studentId
+const getStudentResponsesByTestAndStudent = async (req, res) => {
+    try {
+        const {studentId } = req.params;
+        const studentResponses = await StudentResponse.find({ 
+            student: studentId,
+        }).populate('student testQuestion');
+        
+        if (studentResponses.length < 1) {
+            return res.status(404).json({ error: 'No responses found for the given test and student' });
+        }
+
+        res.status(200).json(studentResponses);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 // Update StudentResponse by ID
 const updateStudentResponseById = async (req, res) => {
     try {
@@ -74,6 +92,7 @@ module.exports = {
     createStudentResponse,
     getAllStudentResponses,
     getStudentResponseById,
+    getStudentResponsesByTestAndStudent,
     updateStudentResponseById,
     deleteStudentResponseById,
 };
