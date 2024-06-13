@@ -5,7 +5,7 @@ const router = express.Router();
 // Define routes
 router.post('/', createTestPerfomance);
 router.get('/', getAllTestPerfomances);
-router.get('/:id', getTestPerfomanceById);
+router.get('/:student/test/:test', getTestPerfomanceById);
 router.put('/:id', updateTestPerfomanceById);
 router.delete('/:id', deleteTestPerfomanceById);
 router.get('/student/:studentId', getOverallPerformanceForStudent);

@@ -15,10 +15,7 @@ const createNote = async (req, res) => {
 const getAllNotes = async (req, res) => {
     try {
         const notes = await subtopicIntroNotes.find()
-            .populate({
-                path: 'subtopic',
-                populate: { path: 'subtopics' }
-            });
+            
         res.status(200).json(notes);
     } catch (error) {
         res.status(500).json({ error: error.message });

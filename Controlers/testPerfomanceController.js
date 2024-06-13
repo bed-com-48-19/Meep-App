@@ -1,4 +1,6 @@
 const TestPerfomance = require('../models/testPerfomance');
+const StudentResponse = require('../models/testQuestionResponse');
+const Student = require('../models/studentModel')
 
 // Create a new TestPerfomance entry
 const createTestPerfomance = async (req, res) => {
@@ -23,7 +25,7 @@ const getAllTestPerfomances = async (req, res) => {
 // Get TestPerfomance by ID
 const getTestPerfomanceById = async (req, res) => {
     try {
-        const testPerfomance = await TestPerfomance.findById(req.params.id).populate('student test');
+        const testPerfomance = await TestPerfomance.find({student : req.params.student, test : req.params.test}).populate('student test');
         if (!testPerfomance) {
             return res.status(404).json({ error: 'TestPerfomance not found' });
         }
