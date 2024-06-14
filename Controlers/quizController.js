@@ -77,10 +77,26 @@ const deleteQuizById = async (req, res) => {
     }
 };
 
+// Delete all quizzes
+const deleteAllQuizzes = async (req, res) => {
+  try {
+    // Delete all quizzes
+    await Quiz.deleteMany({});
+
+    // Update all subtopics to remove references to deleted quizzes
+    await Subtopic.updateMany({}, { $set: { quizzes: [] } });
+
+    res.status(200).json({ message: "All quizzes deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
     createQuiz,
     getAllQuizzes,
     getQuizById,
     updateQuizById,
-    deleteQuizById
+    deleteQuizById,
+    deleteAllQuizzes
 };
