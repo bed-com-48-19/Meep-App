@@ -59,7 +59,8 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: "http://localhost:8000/",
+        // url: "http://localhost:8000/",
+        url: "https://meep-app-api.onrender.com",
         description: "Local server",
       },
     ],
