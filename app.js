@@ -53,17 +53,194 @@ const swaggerOptions = {
   swaggerDefinition: {
     openapi: "3.0.0",
     info: {
-      title: "Meep API",
+      title: "Meep Platform API",
       version: "1.0.0",
-      description: "API documentation for MeepApp application",
+      description: "API documentation for Meep Platform, an educational enhancement application for Malawi students.",
     },
     servers: [
       {
-        // url: "http://localhost:8000/",
         url: "https://meep-app-api.onrender.com",
-        description: "Local server",
+        description: "Production server for Meep Platform",
       },
     ],
+    components: {
+      schemas: {
+        Note: {
+          type: "object",
+          properties: {
+            // noteId: {
+            //   type: "integer",
+            //   description: "The auto-generated id of the note"
+            // },
+            title: {
+              type: "string",
+              description: "The title of the note",
+            },
+            content: {
+              type: "string",
+              description: "The content of the note",
+            },
+            subject: {
+              type: "string",
+              description: "The subject the note belongs to",
+            },
+            author: {
+              type: "string",
+              description: "The author of the note",
+            },
+            createdAt: {
+              type: "string",
+              format: "date-time",
+              description: "The timestamp when the note was created",
+            },
+          },
+          required: ["title", "content", "subject", "author", "createdAt"],
+        },
+        Video: {
+          type: "object",
+          properties: {
+            // videoId: {
+            //   type: "integer",
+            //   description: "The auto-generated id of the video"
+            // },
+            title: {
+              type: "string",
+              description: "The title of the video",
+            },
+            description: {
+              type: "string",
+              description: "The description of the video",
+            },
+            url: {
+              type: "string",
+              description: "The URL of the video",
+            },
+            subject: {
+              type: "string",
+              description: "The subject the video belongs to",
+            },
+            createdBy: {
+              type: "string",
+              description: "The creator of the video",
+            },
+            createdAt: {
+              type: "string",
+              format: "date-time",
+              description: "The timestamp when the video was created",
+            },
+          },
+          required: ["title", "description", "url", "subject", "createdBy", "createdAt"],
+        },
+        Quiz: {
+          type: "object",
+          properties: {
+            // quizId: {
+            //   type: "integer",
+            //   description: "The auto-generated id of the quiz"
+            // },
+            name: {
+              type: "string",
+              description: "The name of the quiz",
+            },
+            description: {
+              type: "string",
+              description: "The description of the quiz",
+            },
+            questions: {
+              type: "array",
+              items: {
+                type: "object",
+                properties: {
+                  questionText: {
+                    type: "string",
+                    description: "The text of the quiz question",
+                  },
+                  allowsMultiple: {
+                    type: "boolean",
+                    description: "Whether the question allows multiple answers",
+                  },
+                  options: {
+                    type: "array",
+                    items: {
+                      type: "string",
+                      description: "Options for the quiz question",
+                    },
+                  },
+                  correctAnswer: {
+                    type: "string",
+                    description: "The correct answer to the quiz question",
+                  },
+                },
+                required: ["questionText", "allowsMultiple", "options", "correctAnswer"],
+              },
+            },
+            subtopic: {
+              type: "string",
+              description: "The subtopic associated with the quiz",
+            },
+          },
+          required: ["name", "description", "questions", "subtopic"],
+        },
+        TestPerformance: {
+          type: "object",
+          properties: {
+            // performanceId: {
+            //   type: "integer",
+            //   description: "The auto-generated id of the test performance record"
+            // },
+            studentId: {
+              type: "integer",
+              description: "The id of the student who took the test",
+            },
+            testId: {
+              type: "integer",
+              description: "The id of the test taken by the student",
+            },
+            score: {
+              type: "number",
+              description: "The score achieved by the student in the test",
+            },
+            dateTaken: {
+              type: "string",
+              format: "date-time",
+              description: "The date and time when the test was taken",
+            },
+          },
+          required: ["studentId", "testId", "score", "dateTaken"],
+        },
+        Feedback: {
+          type: "object",
+          properties: {
+            // feedbackId: {
+            //   type: "integer",
+            //   description: "The auto-generated id of the feedback"
+            // },
+            studentId: {
+              type: "integer",
+              description: "The id of the student providing the feedback",
+            },
+            content: {
+              type: "string",
+              description: "The content of the feedback",
+            },
+            createdAt: {
+              type: "string",
+              format: "date-time",
+              description: "The timestamp when the feedback was provided",
+            },
+            targetType: {
+              type: "string",
+              description: "The type of content the feedback is about (note, video, quiz, etc.)",
+            },
+            targetId: {
+              type: "integer",
+              description: "The id of the content item the feedback is about",
+            },
+          },
+          required: ["studentId", "content", "createdAt", "targetType", "targetId"],
+        },
+      },
+    },
   },
   apis: ["./routes/*.js"], // Adjust the path if your route files are in a different location
 };
