@@ -13,10 +13,7 @@ const createNote = async (req, res) => {
 // Get all notes
 const getAllNotes = async (req, res) => {
   try {
-    const notes = await Notes.find().populate({
-      path: "subtopic",
-      populate: { path: "subtopics" },
-    });
+    const notes = await Notes.find();
     res.status(200).json(notes);
   } catch (error) {
     res.status(500).json({ error: error.message });
