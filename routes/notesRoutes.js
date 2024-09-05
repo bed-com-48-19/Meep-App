@@ -1,5 +1,12 @@
-const express = require('express');
-const { createNote, getAllNotes, getNoteById, updateNoteById, deleteNoteById } = require('../Controlers/notesController');
+const express = require("express");
+const {
+  createNote,
+  getAllNotes,
+  getNoteById,
+  getNotesByVideoId,
+  updateNoteById,
+  deleteNoteById,
+} = require("../controllers/notesController");
 const router = express.Router();
 
 /**
@@ -39,7 +46,7 @@ const router = express.Router();
  *       400:
  *         description: Invalid input
  */
-router.post('/', createNote);
+router.post("/", createNote);
 
 /**
  * @swagger
@@ -57,7 +64,7 @@ router.post('/', createNote);
  *               items:
  *                 $ref: '#/components/schemas/Note'
  */
-router.get('/', getAllNotes);
+router.get("/", getAllNotes);
 
 /**
  * @swagger
@@ -82,7 +89,34 @@ router.get('/', getAllNotes);
  *       404:
  *         description: Note not found
  */
-router.get('/:id', getNoteById);
+router.get("/:id", getNoteById);
+
+/**
+ * @swagger
+ * /api/v1/notes/video/{videoId}:
+ *   get:
+ *     summary: Get notes by video ID
+ *     tags: [Notes]
+ *     parameters:
+ *       - in: path
+ *         name: videoId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The ID of the video to fetch notes for
+ *     responses:
+ *       200:
+ *         description: Notes related to the video ID
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Note'
+ *       404:
+ *         description: Notes not found
+ */
+router.get("/video/:videoId", getNotesByVideoId);
 
 /**
  * @swagger
@@ -120,7 +154,7 @@ router.get('/:id', getNoteById);
  *       404:
  *         description: Note not found
  */
-router.put('/:id', updateNoteById);
+router.put("/:id", updateNoteById);
 
 /**
  * @swagger
@@ -141,6 +175,6 @@ router.put('/:id', updateNoteById);
  *       404:
  *         description: Note not found
  */
-router.delete('/:id', deleteNoteById);
+router.delete("/:id", deleteNoteById);
 
 module.exports = router;
